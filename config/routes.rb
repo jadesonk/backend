@@ -4,6 +4,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :jobs, only: %i[index show]
       resources :users, only: [:index, :show]
+
+      get '/shifts/:id', to: 'shifts#show', as: 'shift'
+      post '/shifts/clock_in', to: 'shifts#create', as: 'clock_in'
+      post '/shifts/:id/clock_out', to: 'shifts#clock_out', as: 'clock_out'
     end
   end
 end
