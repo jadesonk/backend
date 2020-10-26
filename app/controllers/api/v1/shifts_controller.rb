@@ -4,9 +4,12 @@ class Api::V1::ShiftsController < Api::V1::BaseController
   end
 
   def create
+    user = User.find(shift_params[:user_id])
+    job = Job.find(shift_params[:job_id])
+
     @shift = Shift.new
-    @shift.user = User.find(shift_params[:user_id])
-    @shift.job = Job.find(shift_params[:job_id])
+    @shift.user = user
+    @shift.job = job
     @shift.start_time = Time.zone.now
 
     if @shift.save
@@ -16,8 +19,12 @@ class Api::V1::ShiftsController < Api::V1::BaseController
     end
   end
 
-  def clock_out
-    if true # @restaurant.update(restaurant_params)
+  def update
+    @shift = Shift.find(params[:id])
+    # @shift = Shift.find(shift_params[:shift_id])
+    @shift.end_time = Time.zone.now if @shift.end_time.nil?
+
+    if @shift.save
       render :show
     else
       render_error
