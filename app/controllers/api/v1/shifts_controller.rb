@@ -12,7 +12,9 @@ class Api::V1::ShiftsController < Api::V1::BaseController
     @shift.job = job
     @shift.start_time = Time.zone.now
 
-    if @shift.save
+    if user.active_shift?
+      render json: { success: false, errors: "An error occured. Please try again." }, status: :bad_request
+    elsif @shift.save
       render :show, status: :created
     else
       render_error
@@ -21,7 +23,6 @@ class Api::V1::ShiftsController < Api::V1::BaseController
 
   def update
     @shift = Shift.find(params[:id])
-    # @shift = Shift.find(shift_params[:shift_id])
     @shift.end_time = Time.zone.now if @shift.end_time.nil?
 
     if @shift.save
