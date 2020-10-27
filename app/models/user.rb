@@ -9,6 +9,10 @@ class User < ApplicationRecord
   end
 
   def active_shift?
-    last_shift.end_time.nil?
+    if last_shift.nil?
+      false
+    else
+      last_shift.end_time.nil?
+    end
   end
 end
