@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :shifts
-  has_many :jobs, through: :shifts
+  belongs_to :job
 
   validates :name, presence: true
 
