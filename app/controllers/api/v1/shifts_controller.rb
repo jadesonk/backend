@@ -13,7 +13,7 @@ class Api::V1::ShiftsController < Api::V1::BaseController
     @shift.start_time = Time.zone.now
 
     if user.active_shift?
-      render json: { success: false, errors: "An error occured. Please try again." }, status: :bad_request
+      render json: { success: false, errors: 'An error occured. Please try again.' }, status: :bad_request
     elsif @shift.save
       render :show, status: :created
     else
@@ -40,6 +40,6 @@ class Api::V1::ShiftsController < Api::V1::BaseController
 
   def render_error
     render json: { errors: @shift.errors.full_messages },
-      status: :unprocessable_entity
+           status: :unprocessable_entity
   end
 end

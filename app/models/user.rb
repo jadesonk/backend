@@ -5,7 +5,7 @@ class User < ApplicationRecord
   validates :name, presence: true
 
   def last_shift
-    self.shifts.last
+    shifts.last
   end
 
   def active_shift?

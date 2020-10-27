@@ -5,8 +5,8 @@ json.job do
   json.title @user.job.title
 end
 
-unless @user.shifts.last.nil?
+unless @user.last_shift.nil?
   json.last_shift do
-    json.extract! @user.shifts.last, :id, :start_time, :end_time
+    json.extract! @user.last_shift, :id, :start_time, :end_time
   end
 end
